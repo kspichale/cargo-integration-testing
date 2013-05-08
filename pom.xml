@@ -22,8 +22,9 @@
 		<commons-lang.vesion>2.4</commons-lang.vesion>
 		<jacksonjsonprovider.version>1.8</jacksonjsonprovider.version>
 
-		<tomcat.home.dir>${project.basedir}/target/server</tomcat.home.dir>
-		<tomcat.conf.dir>${project.basedir}/target/server-conf</tomcat.conf.dir>
+		<server.dir>${project.basedir}/target/server</server.dir>
+		<catalina.home.dir>${server.dir}/apache-tomcat-7.0.39</catalina.home.dir>
+		<catalina.base.dir>${project.basedir}/target/server-conf</catalina.base.dir>
 	</properties>
 
 	<dependencies>
@@ -123,7 +124,7 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>with-tomcat-setup</id>
+						<id>setup-tomcat</id>
 						<phase>generate-test-resources</phase>
 						<goals>
 							<goal>unpack</goal>
@@ -135,7 +136,7 @@
 									<artifactId>tomcat</artifactId>
 									<type>zip</type>
 									<overWrite>true</overWrite>
-									<outputDirectory>${tomcat.home.dir}</outputDirectory>
+									<outputDirectory>${server.dir}</outputDirectory>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
@@ -166,11 +167,11 @@
 					<wait>false</wait>
 					<container>
 						<containerId>tomcat7x</containerId>
-						<home>${tomcat.home.dir}/apache-tomcat-7.0.39</home>
+						<home>${catalina.home.dir}</home>
 					</container>
 					<configuration>
 						<type>standalone</type>
-						<home>${tomcat.conf.dir}</home>
+						<home>${catalina.base.dir}</home>
 					</configuration>
 					<deployables>
 						<deployable>
